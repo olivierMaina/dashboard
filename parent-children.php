@@ -6,6 +6,52 @@
 	/*************************************/
 
 		$pcConfig = array(
+			'pirl_dashboard' => array(   
+				'external_entity_name' => array(   
+					'parent-table' => 'external_entity',
+					'parent-primary-key' => 'id',
+					'child-primary-key' => 'id',
+					'child-primary-key-index' => 0,
+					'tab-label' => 'External external',
+					'table-icon' => 'resources/table_icons/Cisco_small.png',
+					'display-refresh' => true,
+					'display-add-new' => true,
+					'forced-where' => '',
+					'display-fields' => array(1 => 'Dashboard', 2 => 'Category', 3 => 'External entity', 4 => 'Engagement nature', 5 => 'Engagement', 6 => 'External Contact', 7 => 'Thread', 8 => 'Thread description', 9 => 'Thread status', 10 => 'Start', 11 => 'End', 12 => 'Country', => 13 'Internal Contact', 14 => 'Useful info'),
+					'display-field-names' => array(1 => 'dashboard', 2 => 'category', 3 => 'external_entity_name', 4 => 'engagement_nature', 5 => 'engagement', 6 => 'external_contact_name', 7 => 'thread', 8 => 'thread_description', 9 => 'thread_status', 10 => 'start_date', 11 => 'end_date', 12 => 'country', 13 =>'internal_contact_name', 14 => 'usefull_info'),
+					'sortable-fields' => array(1 => '2', 2 => '3', 3 => '4', 4 => '5', 5 => '6', 6 => '7', 7 => '`applications_leases`.`start_date`', 8 => '`applications_leases`.`end_date`', 11 => '12', 12 => '13', 14 => '15', 17 => '18'),
+					'records-per-page' => 10,
+					'default-sort-by' => false,
+					'default-sort-direction' => 'asc',
+					'open-detail-view-on-click' => true,
+					'display-page-selector' => true,
+					'show-page-progress' => true,
+					'template' => 'children-pirl_dashboard',
+					'query' => "SELECT `pirl_dashboard`.`id` as 'id', `pirl_dashboard`.`dashboard` as 'Dashboard', `pirl_dashboard`.`category` as 'Category', IF(    CHAR_LENGTH(`external_entity1`.`company_name`), CONCAT_WS('',   `external_entity1`.`company_name`), '') as 'External Entity', `pirl_dashboard`.`engagement_nature` as 'Engagement nature',  `pirl_dashboard`.`engagement` as 'Engagement', IF(    CHAR_LENGTH(`external_contact1`.`first_name`) || CHAR_LENGTH(`external_contact1`.`last_name`), CONCAT_WS('',   `external_contact1`.`first_name`, ' ', `external_contact1`.`last_name`), '') as 'External contact', `pirl_dashboard`.`thread` as 'Thread', `pirl_dashboard`.`thread_description` as 'Thread description', `pirl_dashboard`.`thread_status` as 'Thread status', if(`pirl_dashboard`.`start_date`,date_format(`pirl_dashboard`.`start_date`,'%m/%d/%Y'),'') as 'start_date', if(`pirl_dashboard`.`end_date`,date_format(`pirl_dashboard`.`end_date`,'%m/%d/%Y'),'') as 'end_date', `pirl_dashboard`.`country` as 'Country', `pirl_dashboard`.`usefull_info` as 'usefull_info' FROM `pirl_dashboard` LEFT JOIN `external_entity` as external_entity1 ON `external_entity1`.`id`=`pirl_dashboard`.`external_entity_name` LEFT JOIN `external_contact` as external_contact1 ON `external_contact1`.`id`=`pirl_dashboard`.`external_contact_name` LEFT JOIN `internal_contact` as units1 ON `internal_contact1`.`id`=`pirl_dashboard`.`internal_contact_name` "
+				),
+				'unit' => array(   
+					'parent-table' => 'units',
+					'parent-primary-key' => 'id',
+					'child-primary-key' => 'id',
+					'child-primary-key-index' => 0,
+					'tab-label' => 'Applications/Leases',
+					'table-icon' => 'resources/table_icons/curriculum_vitae.png',
+					'display-refresh' => true,
+					'display-add-new' => true,
+					'forced-where' => '',
+					'display-fields' => array(1 => 'Applicant/ Tenant', 2 => 'Application status', 3 => 'Property', 4 => 'Unit applied for', 5 => 'Lease type', 6 => 'Total number of occupants', 7 => 'Lease period from', 8 => 'to', 11 => 'Rental amount', 12 => 'Security deposit', 14 => 'Emergency contact', 17 => 'Applicant agrees'),
+					'display-field-names' => array(1 => 'tenants', 2 => 'status', 3 => 'property', 4 => 'unit', 5 => 'type', 6 => 'total_number_of_occupants', 7 => 'start_date', 8 => 'end_date', 11 => 'rent', 12 => 'security_deposit', 14 => 'emergency_contact', 17 => 'agreement'),
+					'sortable-fields' => array(1 => '2', 2 => '3', 3 => '4', 4 => '5', 5 => '6', 6 => '7', 7 => '`applications_leases`.`start_date`', 8 => '`applications_leases`.`end_date`', 11 => '12', 12 => '13', 14 => '15', 17 => '18'),
+					'records-per-page' => 10,
+					'default-sort-by' => false,
+					'default-sort-direction' => 'asc',
+					'open-detail-view-on-click' => true,
+					'display-page-selector' => true,
+					'show-page-progress' => true,
+					'template' => 'children-applications_leases',
+					'query' => "SELECT `applications_leases`.`id` as 'id', IF(    CHAR_LENGTH(`applicants_and_tenants1`.`first_name`) || CHAR_LENGTH(`applicants_and_tenants1`.`last_name`), CONCAT_WS('',   `applicants_and_tenants1`.`first_name`, ' ', `applicants_and_tenants1`.`last_name`), '') as 'tenants', `applications_leases`.`status` as 'status', IF(    CHAR_LENGTH(`properties1`.`property_name`), CONCAT_WS('',   `properties1`.`property_name`), '') as 'property', IF(    CHAR_LENGTH(`units1`.`unit_number`), CONCAT_WS('',   `units1`.`unit_number`), '') as 'unit', `applications_leases`.`type` as 'type', `applications_leases`.`total_number_of_occupants` as 'total_number_of_occupants', if(`applications_leases`.`start_date`,date_format(`applications_leases`.`start_date`,'%m/%d/%Y'),'') as 'start_date', if(`applications_leases`.`end_date`,date_format(`applications_leases`.`end_date`,'%m/%d/%Y'),'') as 'end_date', `applications_leases`.`recurring_charges_frequency` as 'recurring_charges_frequency', if(`applications_leases`.`next_due_date`,date_format(`applications_leases`.`next_due_date`,'%m/%d/%Y'),'') as 'next_due_date', CONCAT('$', FORMAT(`applications_leases`.`rent`, 2)) as 'rent', CONCAT('$', FORMAT(`applications_leases`.`security_deposit`, 2)) as 'security_deposit', if(`applications_leases`.`security_deposit_date`,date_format(`applications_leases`.`security_deposit_date`,'%m/%d/%Y'),'') as 'security_deposit_date', `applications_leases`.`emergency_contact` as 'emergency_contact', `applications_leases`.`co_signer_details` as 'co_signer_details', `applications_leases`.`notes` as 'notes', concat('<img src=\"', if(`applications_leases`.`agreement`, 'checked.gif', 'checkednot.gif'), '\" border=\"0\" />') as 'agreement' FROM `applications_leases` LEFT JOIN `applicants_and_tenants` as applicants_and_tenants1 ON `applicants_and_tenants1`.`id`=`applications_leases`.`tenants` LEFT JOIN `properties` as properties1 ON `properties1`.`id`=`applications_leases`.`property` LEFT JOIN `units` as units1 ON `units1`.`id`=`applications_leases`.`unit` "
+				)
+			),
 			'applications_leases' => array(   
 				'tenants' => array(   
 					'parent-table' => 'applicants_and_tenants',
