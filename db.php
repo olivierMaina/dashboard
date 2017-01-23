@@ -8,7 +8,7 @@
 	// define('DATABASE', 'mssql'); 
 
 
-
+//	blabla...
 
 	if(!defined('DATABASE')){
 		if(function_exists('mysqli_connect')){
